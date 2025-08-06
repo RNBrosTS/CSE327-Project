@@ -3,7 +3,7 @@ require_once 'db.php';
 require_once 'auth.php';
 require_role('admin');
 
-// Save pricing for event
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $event_id = (int)$_POST['event_id'];
     $price = (float)$_POST['ticket_price'];
@@ -14,11 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-// Add column to events if not exists (run once)
-$mysqli->query("ALTER TABLE events ADD COLUMN IF NOT EXISTS ticket_price DECIMAL(10,2) DEFAULT 0");
 
-// Load events
+$mysqli->query("ALTER TABLE events ADD COLUMN IF NOT EXISTS ticket_price DECIMAL(10,2) DEFAULT 0");
 $events = $mysqli->query("SELECT id, title, event_date, COALESCE(ticket_price,0) as ticket_price FROM events ORDER BY event_date DESC");
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -110,3 +110,4 @@ $events = $mysqli->query("SELECT id, title, event_date, COALESCE(ticket_price,0)
     <p><a href="dashboard.php">← Back to Dashboard</a></p>
 </body>
 </html>
+
