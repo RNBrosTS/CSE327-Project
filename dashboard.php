@@ -2,24 +2,18 @@
 require_once 'db.php';
 require_admin();
 
-// Counts
-$counts = ['members'=>0,'teams'=>0,'events'=>0,'attendance_today'=>0];
 
-// total members
+$counts = ['members'=>0,'teams'=>0,'events'=>0,'attendance_today'=>0];
 $res = $mysqli->query("SELECT COUNT(*) c FROM users");
 $counts['members'] = (int)$res->fetch_assoc()['c'];
-
-// total teams
 $res = $mysqli->query("SELECT COUNT(*) c FROM teams");
 $counts['teams'] = (int)$res->fetch_assoc()['c'];
-
-// upcoming events (next 30 days)
 $res = $mysqli->query("SELECT COUNT(*) c FROM events WHERE event_date >= NOW() AND event_date <= DATE_ADD(NOW(), INTERVAL 30 DAY)");
 $counts['events'] = (int)$res->fetch_assoc()['c'];
-
-// today's attendance rows
 $res = $mysqli->query("SELECT COUNT(*) c FROM attendance WHERE DATE(noted_at)=CURDATE()");
 $counts['attendance_today'] = (int)$res->fetch_assoc()['c'];
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,22 +21,18 @@ $counts['attendance_today'] = (int)$res->fetch_assoc()['c'];
 <meta charset="UTF-8">
 <title>Dashboard - Sports Club</title>
 <style>
-
-/* ===== General Styles ===== */
 body {
     font-family: Arial;
     margin: 0;
     background: #f0f2f5;
 }
 
-/* ===== Header ===== */
 header {
     background-color: #05ad4e8b;
     color: #1f1f1fff;
     padding: 14px 24px;
 }
 
-/* ===== Grid Layout ===== */
 .grid {
     display: flex;
     flex-wrap: wrap;
@@ -51,7 +41,7 @@ header {
     justify-content: center;
 }
 
-/* ===== Card Styles ===== */
+
 .card {
     background-color: #ffffff;
     border-radius: 10px;
@@ -72,7 +62,6 @@ header {
     color: #444444;
 }
 
-/* ===== Navigation Links ===== */
 .nav {
     text-align: center;
     margin: 10px 0 30px;
@@ -92,9 +81,10 @@ header {
 .nav a:hover {
     background-color: #037032c1;
 }
-
 </style>
 </head>
+
+    
 <body>
 <header><h1>Admin Dashboard</h1></header>
 
@@ -114,3 +104,4 @@ header {
 </div>
 </body>
 </html>
+
