@@ -1,16 +1,16 @@
 <?php
-require_once 'db.php';
-require_once 'auth.php';
-require_role('coach');
+require_once 'db.php';//db connection
+require_once 'auth.php';// authentication
+require_role('coach'); // got to be role of coach
 
 
-// Save metric
+// form handeling
 if ($_SERVER['REQUEST_METHOD']==='POST') {
     $metric = trim($_POST['metric'] ?? '');
     $value  = (float)($_POST['value'] ?? 0);
     $date   = $_POST['measured_on'] ?? date('Y-m-d');
     $uid    = (int)$_SESSION['user_id'];
-
+//inserting sql 
     if ($metric && $value>0) {
         $stmt=$mysqli->prepare("INSERT INTO performance (user_id,metric,value,measured_on) VALUES (?,?,?,?)");
         $stmt->bind_param('isds',$uid,$metric,$value,$date);
@@ -19,12 +19,12 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
     header('Location: performance.php'); exit;
 }
 
-// Load metrics for logged user
+// getting performance data
 $uid = isset($_POST['user_id']) ? (int)$_POST['user_id'] : 0;
 $stmt=$mysqli->prepare("SELECT metric,value,measured_on FROM performance WHERE user_id=? ORDER BY measured_on ASC, id ASC");
 $stmt->bind_param('i',$uid); $stmt->execute(); $res=$stmt->get_result();
 
-$series = []; // metric => [labels[], values[]]
+$series = []; 
 while($r=$res->fetch_assoc()){
     $m=$r['metric']; $series[$m]['labels'][]=$r['measured_on']; $series[$m]['values'][]=(float)$r['value'];
 }
@@ -45,7 +45,7 @@ table{border-collapse:collapse;width:100%}th,td{border:1px solid #eee;padding:8p
 <h2>Performance Tracking</h2>
 
 <?php
-// Load all players for selection
+// Load all players
 $players = $mysqli->query("SELECT id, name FROM users WHERE role='player' ORDER BY name");
 ?>
 <form method="post">
