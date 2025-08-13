@@ -13,16 +13,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param('di', $price, $event_id);
     $stmt->execute();
 
-
-    
     header("Location: ticket_payment.php?success=1");
     exit;
 }
 
 
-
 $mysqli->query("ALTER TABLE events ADD COLUMN IF NOT EXISTS ticket_price DECIMAL(10,2) DEFAULT 0");
-
 
 $events = $mysqli->query("
     SELECT id, title, event_date, COALESCE(ticket_price, 0) AS ticket_price 
@@ -126,8 +122,9 @@ $events = $mysqli->query("
       <?php endwhile; ?>
     </tbody>
   </table>
-
   <a href="dashboard.php">← Back to Dashboard</a>
 
+    
 </body>
 </html>
+
