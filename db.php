@@ -1,9 +1,9 @@
 <?php
-// db.php
+
 $DB_HOST = 'localhost';
 $DB_USER = 'root';
-$DB_PASS = '';            // <- set your password
-$DB_NAME = 'sports_club'; // <- must match schema above
+$DB_PASS = '';            
+$DB_NAME = 'sports_club';
 
 $mysqli = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
 if ($mysqli->connect_errno) {
@@ -19,3 +19,4 @@ function require_admin() {
         exit();
     }
 }
+
