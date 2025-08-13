@@ -1,6 +1,5 @@
 <?php
 require_once 'db.php';
-
 require_admin();
 
 $member_count = 0;
@@ -133,3 +132,4 @@ $attendance_today = $result->fetch_assoc()['total'] ?? 0;
 
 </body>
 </html>
+
