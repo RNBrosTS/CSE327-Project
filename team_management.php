@@ -28,3 +28,25 @@ if (isset($_GET['delete'])) {
     exit;
 }
 
+$sql_list_teams = "
+    SELECT
+        t.id,
+        t.name,
+        COALESCE( u.name , '—' ) AS coach_name
+    FROM teams t
+    LEFT JOIN users u ON u.id = t.coach_id
+    ORDER BY t.id DESC
+";
+
+$sql_list_coaches = "
+    SELECT id, name
+    FROM users
+    WHERE role = 'coach'
+    ORDER BY name
+";
+
+$teams_result   = $mysqli->query( $sql_list_teams );
+$coaches_result = $mysqli->query( $sql_list_coaches );
+?>
+
+
