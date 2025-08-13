@@ -1,0 +1,18 @@
+The performance.php file allows coaches to track and visualize the performance of users. 
+Coaches can input performance data, view it in a table, and see a graph of how the performance changes over time.
+Main Features
+1. Form for Submitting Performance Data:
+It provides a form where a coach can enter data like the metric name, its value, and the date it was measured.
+The form uses a POST request to send this data to the server and save it in the database.
+2. Data Validation:
+Metric: This field cannot be left empty. A valid metric must be entered.
+Value: The value must be a positive number.
+Date: If the date is not provided, the system automatically uses the current date.
+3. Database Interaction:
+The performance data entered by the coach is saved into the performance table in the database using prepared statements, which makes the process secure by preventing SQL injection attacks.
+Once the data is successfully saved, the page reloads and shows the newly added data.
+4. Displaying Performance Data:
+The system fetches and displays the performance data for a user in a table.
+Chart.js is used to display the data as a graph, so the coach can visually see how the performance has changed over time.
+5. User Role Control:
+Only users with the role "coach" are allowed to access the page and submit performance data.
