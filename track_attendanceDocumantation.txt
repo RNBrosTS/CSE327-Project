@@ -1,0 +1,18 @@
+This file allows coaches to track the attendance of players for different events.
+Coaches can select an event, mark players as present, absent, or late, and save the attendance data in the database.
+
+Main Features
+Event Selection:
+
+The file provides a dropdown where the coach can select an event. 
+The events are listed in the order of the most recent event first.
+If an event is selected, the page displays the list of players for that event.
+Attendance Submission:
+After selecting the event, the coach can mark each player's attendance as present, absent, or late using radio buttons.
+The coach then submits the form, and the attendance data is saved in the database.
+Handling Duplicates:
+If a player's attendance for the selected event already exists, the system will update the status instead of adding a new record.
+Prefilling Existing Attendance Data:
+If attendance data already exists for the selected event, 
+the system pre-fills the attendance statuses for each player.
+
